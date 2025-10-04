@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   authors: [{ name: SEO_CONFIG.siteName }],
   creator: SEO_CONFIG.siteName,
   publisher: SEO_CONFIG.siteName,
+  verification: {
+    google: 'IkQZ0yCY4fRZxzrxsl7McIuIsLYl1IgEPg1PP5GOeXo',
+  },
   robots: {
     index: true,
     follow: true,
