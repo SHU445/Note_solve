@@ -8,7 +8,7 @@ import { Position } from '@/lib/types';
  */
 export const useOptimizedDrag = () => {
   const { moveElement } = useStore();
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const lastMoveTimeRef = useRef<number>(0);
   const pendingMoveRef = useRef<{ id: string; position: Position } | null>(null);
 

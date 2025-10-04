@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 // Simple Markdown renderer fallback
 const SimpleMarkdownRenderer = ({ children, className }: { children: string; className?: string }) => {
   const renderMarkdown = (text: string) => {
-    let html = text
+    const html = text
       // Headers
       .replace(/^### (.*$)/gim, '<h3 class="text-sm font-semibold mb-2 mt-3">$1</h3>')
       .replace(/^## (.*$)/gim, '<h2 class="text-base font-semibold mb-2 mt-3">$1</h2>')
@@ -108,7 +108,6 @@ export default function NoteCard({ note, isSelected, onSelect }: NoteCardProps) 
   const [isCopied, setIsCopied] = useState(false);
   const [autoSaveTimeout, setAutoSaveTimeout] = useState<NodeJS.Timeout | null>(null);
   const [isResizing, setIsResizing] = useState(false);
-  const [resizeDirection, setResizeDirection] = useState<'se' | 's' | 'e' | null>(null);
   const [contentDimensions, setContentDimensions] = useState<{width: number, height: number} | null>(null);
   
   const { updateElement, deleteElement, resizeElement } = useStore();
@@ -201,7 +200,7 @@ export default function NoteCard({ note, isSelected, onSelect }: NoteCardProps) 
   useEffect(() => {
     if (!isResizing && !note.size) { // Seulement si pas de taille manuelle définie
       const optimalDimensions = calculateOptimalDimensions();
-      if (optimalDimensions && contentDimensions?.width !== optimalDimensions.width || contentDimensions?.height !== optimalDimensions.height) {
+      if (optimalDimensions && (contentDimensions?.width !== optimalDimensions.width || contentDimensions?.height !== optimalDimensions.height)) {
         setContentDimensions(optimalDimensions);
       }
     }
@@ -291,7 +290,6 @@ export default function NoteCard({ note, isSelected, onSelect }: NoteCardProps) 
     e.preventDefault();
     e.stopPropagation();
     setIsResizing(true);
-    setResizeDirection(direction);
     
     const startX = e.clientX;
     const startY = e.clientY;
@@ -315,7 +313,6 @@ export default function NoteCard({ note, isSelected, onSelect }: NoteCardProps) 
 
     const handleMouseUp = () => {
       setIsResizing(false);
-      setResizeDirection(null);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };

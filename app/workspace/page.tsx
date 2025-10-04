@@ -25,7 +25,6 @@ export default function WorkspacePage() {
     selectedElementId,
     isDarkMode,
     addElement,
-    moveElement,
     setSelectedElement
   } = useStore();
 
